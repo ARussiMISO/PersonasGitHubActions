@@ -1,9 +1,6 @@
 import unittest
 from datetime import datetime
 
-from faker import Faker
-from sqlalchemy.orm import Session
-
 from Comunidad.Persona import Persona
 
 class PersonaTestCase(unittest.TestCase):
