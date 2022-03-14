@@ -1,0 +1,52 @@
+name: Release1
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+jobs:
+
+  jobCrearRelease:
+     name: Crear_release_HU000
+     runs-on: ubuntu-latest
+     steps:
+      - name: Crear rama release
+        run: |
+          git checkout -b release/HU000
+          git push -f -u origin release/HU000
+
+  jobPrueba:
+    name: Pruebas
+    needs: jobCrearRelease
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
+    - name: Configuración de entorno de python
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.9'
+    - name: Instalación de librerías y dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Correr pruebas
+      id: correr-pruebas
+      run: python -m unittest -v tests
+    - name: Cálculo de cubrimiento
+      id: cubrimiento
+      run: |
+          coverage run -m unittest tests
+          coverage report -m
+  
+  job-Merge-Merge-release-to-main: 
+    name: Merge release --> main
+    needs: jobPrueba
+    runs-on: ubuntu-latest
+    steps:
+    - name: merge-direct
+      uses: tukasz/direct-merge-action@master	
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        source-branch: release/HU000
+        target-branch: main
