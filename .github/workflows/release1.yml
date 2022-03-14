@@ -7,12 +7,13 @@ on:
 jobs:
 
   jobCrearRelease:
-    name: Crear_release_HU000
-    runs-on: ubuntu-latest
-    steps:    
-      run: |
-       git checkout -b release/HU000
-	     git push -f -u origin release/HU000
+     name: Crear_release_HU000
+     runs-on: ubuntu-latest
+     steps:
+      - name: Crear rama release
+        run: |
+          git checkout -b release/HU000
+          git push -f -u origin release/HU000
 
   jobPrueba:
     name: Pruebas
