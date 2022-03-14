@@ -35,6 +35,6 @@ jobs:
       - name: merge
         uses: tukasz/direct-merge-action@master	
         with:
-          GITHUB_TOKEN: ${{ secrets.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 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           source-branch: feature/HU000
           target-branch: develop
