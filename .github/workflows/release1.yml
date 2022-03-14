@@ -10,8 +10,14 @@ jobs:
      name: Crear_release_HU000
      runs-on: ubuntu-latest
      steps:
-      - name: Crear rama release
-        run: |
+     - name: Checkout de repositorio
+       uses: actions/checkout@v2
+     - name: Configuración de entorno de python
+       uses: actions/setup-python@v2
+       with:
+           python-version: '3.9'
+     - name: Crear rama release
+       run: |
           git checkout -b release/HU000
           git push -f -u origin release/HU000
 
