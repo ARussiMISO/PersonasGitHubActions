@@ -32,6 +32,7 @@ class Persona:
        anio_7 = 0
        anio_8 = 0
        anio_9 = 0
+       anio_10 = 0
        if ya_cumplio_anios:
            return (anio_actual - self.__edad)
        else:
