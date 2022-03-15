@@ -26,6 +26,7 @@ class Persona:
        anio_actual = datetime.datetime.now().year
        anio_2 = 0
        anio_3 = 0
+
        if ya_cumplio_anios:
            return (anio_actual - self.__edad)
        else:
