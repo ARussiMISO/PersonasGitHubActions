@@ -1,9 +1,9 @@
 name: feature/HU000v3
 on:
   push:
-    branches: [ feature/HU000 ]
+    branches: [ feature/* ]
   pull_request:
-    branches: [ feature/HU000 ]
+    branches: [ feature/* ]
 jobs:
   job1:
     name: Pruebas V3
@@ -35,5 +35,5 @@ jobs:
       - name: merge
         run: |
           git checkout develop
-          git merge feature/HU000
+          git merge feature/*
            
