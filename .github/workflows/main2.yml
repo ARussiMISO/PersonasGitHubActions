@@ -32,6 +32,10 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: merge
         run: |
           git checkout develop
