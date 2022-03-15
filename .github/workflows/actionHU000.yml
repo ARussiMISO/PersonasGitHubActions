@@ -38,3 +38,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           source-branch: feature/HU000
           target-branch: develop
+  jobPushDevelop:
+     name: Push-en-develop
+     runs-on: ubuntu-latest
+     steps:
+     - name: Checkout de repositorio
+       uses: actions/checkout@v2
+     - name: Configuración de entorno de python
+       uses: actions/setup-python@v2
+       with:
+           python-version: '3.9'
+     - name: Push en develop
+       run: |
+          git checkout develop
+          git push origin develop
