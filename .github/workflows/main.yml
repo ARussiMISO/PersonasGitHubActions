@@ -1,9 +1,9 @@
 name: feature/HU000v2
 on:
   push:
-    branches: [ feature//HU000 ]
+    branches: [ feature/HU000 ]
   pull_request:
-    branches: [ feature//HU000 ]
+    branches: [ feature/HU000 ]
 jobs:
   job1:
     name: Pruebas V3
@@ -28,7 +28,7 @@ jobs:
           coverage run -m unittest tests
           coverage report -m
   merge-feature-HU000-to-develop:
-    name: Merge feature//HU000 -> develop
+    name: Merge feature/HU000 -> develop
     needs: job1
     runs-on: ubuntu-latest
     steps:
@@ -36,5 +36,5 @@ jobs:
         uses: tukasz/direct-merge-action@master	
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          source-branch: feature//HU000
+          source-branch: feature/HU000
           target-branch: develop
