@@ -38,8 +38,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           source-branch: feature/HU000
           target-branch: develop
+          
   jobPushDevelop:
      name: Push-en-develop
+     needs: merge-feature-XXXX-to-develop
      runs-on: ubuntu-latest
      steps:
      - name: Checkout de repositorio
@@ -51,4 +53,4 @@ jobs:
      - name: Push en develop
        run: |
           git checkout develop
-          git push
+          git push origin develop
