@@ -1,4 +1,4 @@
-name: '${{ github.ref_name }}'
+name: feature/HU000
 on:
   push:
     branches:
