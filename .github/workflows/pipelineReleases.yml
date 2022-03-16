@@ -18,8 +18,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Crear rama release
       run: |
-        git checkout -b $NAME_BRANCH
-        git push -f -u origin $NAME_BRANCH
+        git checkout -b release2
+        git push -f -u origin release2
 
   job1:
     name: Pruebas V3
@@ -55,5 +55,5 @@ jobs:
       uses: tukasz/direct-merge-action@master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        source-branch: format('{{release{0}}}','${{ github.ref_name }}')
+        source-branch: release2
         target-branch: main
