@@ -11,9 +11,9 @@ jobs:
     if: ${{ contains(github.event.head_commit.message, 'OK') }}
     name: Crear_release
     runs-on: ubuntu-latest
-    env:
-      NAME_BRANCH: ${{ github.GITHUB_HEAD_REF }}
     steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
     - name: Crear rama release
       run: |
         git checkout -b release2
