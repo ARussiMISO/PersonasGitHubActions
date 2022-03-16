@@ -16,10 +16,7 @@ jobs:
     steps:
     - name: Checkout de repositorio
       uses: actions/checkout@v2
-      run: |
-         echo "$github.GITHUB_HEAD_REF"
-	     git checkout -b $NAME_BRANCH
-	     git push -f -u origin $NAME_BRANCH
+      run: echo "$github.GITHUB_HEAD_REF"
 
   job1:
     name: Pruebas V3
