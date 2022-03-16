@@ -13,8 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       run: |
-	  git checkout -b format('{{release{0}}}','${{ github.ref_name }}')
-	  git push -f -u origin format('{{release{0}}}','${{ github.ref_name }}')
+	  git checkout -b nombre_release
+	  git push -f -u origin nombre_release
+      env:
+        nombre_release: format('{{release{0}}}','${{ github.ref_name }}')
   job1:
     name: Pruebas V3
     needs: crear-release
