@@ -15,8 +15,8 @@ jobs:
       env:
         nombre_release: format('{{release{0}}}','${{ github.ref_name }}')
       run: |
-	  git checkout -b nombre_release
-	  git push -f -u origin nombre_release
+	  git checkout -b $nombre_release
+	  git push -f -u origin $nombre_release
 
   job1:
     name: Pruebas V3
