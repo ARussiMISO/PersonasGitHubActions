@@ -12,9 +12,11 @@ jobs:
     name: Crear_release
     runs-on: ubuntu-latest
     steps:
+    - env:
+        NAME_BRANCH: ${{ github.GITHUB_HEAD_REF }}
       run: |
-	  git checkout -b ${{ github.GITHUB_HEAD_REF }}
-	  git push -f -u origin ${{ github.GITHUB_HEAD_REF }}
+	  git checkout -b $NAME_BRANCH
+	  git push -f -u origin $NAME_BRANCH
 
   job1:
     name: Pruebas V3
