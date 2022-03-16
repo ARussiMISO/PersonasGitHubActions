@@ -14,6 +14,8 @@ jobs:
     env:
       NAME_BRANCH: ${{ github.GITHUB_HEAD_REF }}
     steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
       run: |
 	  git checkout -b "$NAME_BRANCH"
 	  git push -f -u origin "$NAME_BRANCH"
