@@ -14,8 +14,6 @@ jobs:
     env:
       NAME_BRANCH: ${{ github.GITHUB_HEAD_REF }}
     steps:
-    - name: Checkout de repositorio
-      uses: actions/checkout@v2
     - name: Crear rama release
       run: |
         git checkout -b release2
