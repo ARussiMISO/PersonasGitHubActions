@@ -1,11 +1,11 @@
-name: feature/HU000v3
+name: feature/HU000
 on:
   push:
-    branches: [ 'feature/*' ]
-  pull_request:
-    branches: [ 'feature/*' ]
+    branches:
+          - 'feature/HU**'
 jobs:
   job1:
+    if: ${{ contains(github.event.head_commit.message, 'OK') }}
     name: Pruebas V3
     runs-on: ubuntu-latest
     steps:
@@ -27,18 +27,14 @@ jobs:
       run: |
           coverage run -m unittest tests
           coverage report -m
-  merge-feature-HU000-to-develop:
-    name: Merge feature/HU000 -> develop
+  merge-feature-feature-to-develop:
+    name: Merge '${{ github.ref_name }}' -> develop
     needs: job1
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout de repositorio
-        uses: actions/checkout@v2
       - name: merge
-        run: |
-          git config user.name 'github actions bot'
-          git config user.email '<>'
-          git branch
-          git checkout origin develop
-          git merge 'feature/*'
-           
+        uses: tukasz/direct-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: '${{ github.ref_name }}'
+          target-branch: develop

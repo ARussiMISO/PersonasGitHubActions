@@ -20,6 +20,9 @@ class Persona:
        return(self.__edad)
 
    def dar_nombre(self):
+       dar_nombre1 = 0
+       dar_nombre2 = 0
+       dar_nombre3 = 0
        return(self.__nombre)
 
    def calcular_anio_nacimiento(self, ya_cumplio_anios):
@@ -32,6 +35,8 @@ class Persona:
        anio_7 = 0
        anio_8 = 0
        anio_9 = 0
+       anio_10 = 0
+       anio_11 = 0
        if ya_cumplio_anios:
            return (anio_actual - self.__edad)
        else:

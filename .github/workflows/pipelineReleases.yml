@@ -1,12 +1,27 @@
-name: feature/HU000v3
+name: Release Feature
 on:
   push:
-    branches: [ 'feature/*' ]
+    branches:
+        - develop
   pull_request:
-    branches: [ 'feature/*' ]
+    branches:
+        - develop
 jobs:
+  crear-release:
+    if: ${{ contains(github.event.head_commit.message, 'OK') }}
+    name: Crear_release
+    runs-on: ubuntu-latest
+    env:
+      NAME_BRANCH: ${{ github.GITHUB_HEAD_REF }}
+    steps:
+    - name: Crear rama release
+      run: |
+        git checkout -b release2
+        git push -f -u origin release2
+
   job1:
     name: Pruebas V3
+    needs: crear-release
     runs-on: ubuntu-latest
     steps:
     - name: Checkout de repositorio
@@ -27,18 +42,16 @@ jobs:
       run: |
           coverage run -m unittest tests
           coverage report -m
-  merge-feature-HU000-to-develop:
-    name: Merge feature/HU000 -> develop
-    needs: job1
+
+
+  jobMerge-release-to-main:
+    name: Merge release --> main
+    needs: crear-release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout de repositorio
-        uses: actions/checkout@v2
-      - name: merge
-        run: |
-          git config user.name 'github actions bot'
-          git config user.email '<>'
-          git branch
-          git checkout origin develop
-          git merge 'feature/*'
-           
+    - name: merge-direct
+      uses: tukasz/direct-merge-action@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        source-branch: release2
+        target-branch: main
