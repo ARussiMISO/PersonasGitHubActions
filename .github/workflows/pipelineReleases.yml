@@ -17,8 +17,9 @@ jobs:
     - name: Checkout de repositorio
       uses: actions/checkout@v2
       run: |
-	  git checkout -b "$NAME_BRANCH"
-	  git push -f -u origin "$NAME_BRANCH"
+      echo "$NAME_BRANCH"
+	  git checkout -b $NAME_BRANCH
+	  git push -f -u origin $NAME_BRANCH
 
   job1:
     name: Pruebas V3
