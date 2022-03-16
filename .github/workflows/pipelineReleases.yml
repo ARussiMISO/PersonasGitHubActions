@@ -17,7 +17,9 @@ jobs:
     - name: Checkout de repositorio
       uses: actions/checkout@v2
     - name: Crear rama release
-      run: echo "$github.GITHUB_HEAD_REF"
+      run: |
+        git checkout -b $NAME_BRANCH
+        git push -f -u origin $NAME_BRANCH
 
   job1:
     name: Pruebas V3
