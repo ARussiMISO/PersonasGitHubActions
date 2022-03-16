@@ -1,0 +1,53 @@
+name: Release Feature
+on:
+  push:
+    branches:
+        - develop
+  pull_request:
+    branches:
+        - develop
+jobs:
+  crear-release:
+    if: ${{ contains(github.event.head_commit.message, 'OK') }}
+    name: Crear_release
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+	  git checkout -b format('{{release{0}}}','${{ github.ref_name }}')
+	  git push -f -u origin format('{{release{0}}}','${{ github.ref_name }}')
+  job1:
+    name: Pruebas V3
+    needs: crear-release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout de repositorio
+      uses: actions/checkout@v2
+    - name: Configuración de entorno de python
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.9'
+    - name: Instalación de librerías y dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Correr pruebas
+      id: correr-pruebas
+      run: python -m unittest -v tests
+    - name: Cálculo de cubrimiento
+      id: cubrimiento
+      run: |
+          coverage run -m unittest tests
+          coverage report -m
+
+
+  jobMerge-release-to-main:
+    name: Merge release --> main
+    needs: crear-release
+    runs-on: ubuntu-latest
+    steps:
+    - name: merge-direct
+      uses: tukasz/direct-merge-action@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        source-branch: format('{{release{0}}}','${{ github.ref_name }}')
+        target-branch: main
